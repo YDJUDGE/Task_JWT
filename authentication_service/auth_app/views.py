@@ -20,7 +20,7 @@ class TokenObtainView(APIView):
         except User.DoesNotExist:
             return JsonResponse({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
 
-        ip_address = "8.8.8.8"
+        ip_address = request.META.get('REMOTE_ADDR')
         access_token = generate_access_token(user_id, ip_address)
         refresh_token = generate_refresh_token()
 
